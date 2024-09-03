@@ -1,0 +1,86 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &1119755434554700730
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 53738730084907136, guid: 4d31417923e986841b5ce240eba7e92e, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 53738730084907136, guid: 4d31417923e986841b5ce240eba7e92e, type: 3}
+      propertyPath: m_Color.g
+      value: 0.7537745
+      objectReference: {fileID: 0}
+    - target: {fileID: 53738730084907136, guid: 4d31417923e986841b5ce240eba7e92e, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 437855227803769555, guid: 4d31417923e986841b5ce240eba7e92e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 437855227803769555, guid: 4d31417923e986841b5ce240eba7e92e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 437855227803769555, guid: 4d31417923e986841b5ce240eba7e92e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 437855227803769555, guid: 4d31417923e986841b5ce240eba7e92e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 437855227803769555, guid: 4d31417923e986841b5ce240eba7e92e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 437855227803769555, guid: 4d31417923e986841b5ce240eba7e92e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 437855227803769555, guid: 4d31417923e986841b5ce240eba7e92e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 437855227803769555, guid: 4d31417923e986841b5ce240eba7e92e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 437855227803769555, guid: 4d31417923e986841b5ce240eba7e92e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 437855227803769555, guid: 4d31417923e986841b5ce240eba7e92e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609600134780726575, guid: 4d31417923e986841b5ce240eba7e92e, type: 3}
+      propertyPath: m_Name
+      value: Clyde_Ghost
+      objectReference: {fileID: 0}
+    - target: {fileID: 8713384355713134295, guid: 4d31417923e986841b5ce240eba7e92e, type: 3}
+      propertyPath: initBehavior
+      value: 
+      objectReference: {fileID: 6148563144234995212}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4d31417923e986841b5ce240eba7e92e, type: 3}
+--- !u!114 &6148563144234995212 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6547739322322107830, guid: 4d31417923e986841b5ce240eba7e92e, type: 3}
+  m_PrefabInstance: {fileID: 1119755434554700730}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21f2b0dc051b22941a4e76016250863b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
