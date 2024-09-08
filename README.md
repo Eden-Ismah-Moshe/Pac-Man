@@ -38,11 +38,6 @@ Pacman is a maze arcade game where the player controls Pacman, navigating throug
    - Click on **"Open"** and navigate to the cloned project folder.
    - Unity will load the project.
 
-3. **Build the Game** (optional):
-   - Go to **File > Build Settings**.
-   - Choose your target platform (e.g., PC, Mac, WebGL).
-   - Click on **"Build"**.
-
 ## How to Play
 - **Movement**: Use the arrow keys to move Pacman up, down, left, and right.
 - **Objective**: Eat all the dots on the screen while avoiding the ghosts.
