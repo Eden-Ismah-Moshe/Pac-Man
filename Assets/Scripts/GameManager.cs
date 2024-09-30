@@ -87,15 +87,7 @@ public class GameManager : MonoBehaviour
         }
         
         SceneManager.LoadScene(0);
-        /*
-        foreach (var t in ghosts)
-        {
-            t.gameObject.SetActive(false);
-        }
-
-        pacman.gameObject.SetActive(false);
-        
-        */
+       
     }
 
     private void SetLives(int lives)
