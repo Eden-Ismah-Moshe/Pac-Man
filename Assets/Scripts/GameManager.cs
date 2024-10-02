@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
     public int lives { get; private set; } = 3; 
     
     private int ghostMultiplier = 1;
+    private bool isNewGame = true; // To check if it is a new game or a new level
     
     private void Awake()
     {
@@ -27,6 +28,7 @@ public class GameManager : MonoBehaviour
             DestroyImmediate(gameObject);
         } else {
             Instance = this;
+            DontDestroyOnLoad(gameObject);  // Keep the GameManager across scenes
         }
     }
 
@@ -51,20 +53,26 @@ public class GameManager : MonoBehaviour
 
     private void NewGame()
     {
-        SetScore(0);
+
+        if (isNewGame)
+        {
+            SetScore(0);  // Only reset score for new games, not for level transitions
+        }
         SetLives(3);
         NewRound();
+        isNewGame = false; // Once the game starts, it's no longer a new game until it's reset
     }
 
     private void NewRound()
     {
         _gameOverText.enabled = false;
 
-        foreach (Transform pellet in pellets) {
-            pellet.gameObject.SetActive(true);
+        foreach (Transform pellet in pellets)
+        {
+            pellet.gameObject.SetActive(true); // Reactivate all pellets
         }
 
-        ResetState();
+        ResetState(); // Reset the state for ghosts and Pacman
     }
 
     private void ResetState()
@@ -86,22 +94,19 @@ public class GameManager : MonoBehaviour
             PlayerPrefs.SetInt("HighScore", score);
         }
         
+        isNewGame = true;  // The next game will be a new game
         SceneManager.LoadScene(0);
-        /*
-        foreach (var t in ghosts)
-        {
-            t.gameObject.SetActive(false);
-        }
-
-        pacman.gameObject.SetActive(false);
-        
-        */
     }
 
     private void SetLives(int lives)
     {
         this.lives = lives;
         _livesText.text = "Lives: " + lives.ToString();
+        
+        if (lives <= 0)
+        {
+            GameOver(); 
+        }
     }
 
     private void SetScore(int score)
@@ -140,11 +145,12 @@ public class GameManager : MonoBehaviour
 
         if (!HasRemainingPellets())
         {
-            pacman.gameObject.SetActive(false);
-            Invoke(nameof(NewRound), 3f);
+          //  pacman.gameObject.SetActive(false);
+          Invoke(nameof(NextLevel), 3f); // Wait 3 seconds before loading the next level
+
         }
     }
-
+    
     public void PowerPelletEaten(PowerPellet pellet)
     {
         for (int i = 0; i < ghosts.Length; i++) {
@@ -158,18 +164,74 @@ public class GameManager : MonoBehaviour
 
     private bool HasRemainingPellets()
     {
+        if (pellets == null)
+        {
+            return false;
+        }
+    
+        bool foundPellets = false;
+
         foreach (Transform pellet in pellets)
         {
-            if (pellet.gameObject.activeSelf) {
-                return true;
+            if (pellet.gameObject.activeSelf)
+            {
+                foundPellets = true;
             }
         }
 
-        return false;
+        return foundPellets;
     }
 
     private void ResetGhostMultiplier()
     {
         ghostMultiplier = 1;
     }
+    
+    private void NextLevel()
+    {
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+
+        if (currentSceneIndex == 1)  
+        {
+            SceneManager.LoadScene(2); 
+            StartCoroutine(AssignLevelObjects()); // Wait for the scene to load
+
+        }
+        else if (currentSceneIndex == 2)  
+        {
+            if (!HasRemainingPellets() || lives <= 0)  
+            {
+                GameOver();
+            }
+            else
+            {
+                return;
+            }
+        }
+      
+    }
+
+    private IEnumerator AssignLevelObjects()
+    {
+        yield return new WaitForSeconds(0.5f); // Short delay to allow scene load
+
+        pacman = FindObjectOfType<Pacman>();
+        ghosts = FindObjectsOfType<Ghost>();
+        pellets = GameObject.Find("Pellets")?.transform;
+        
+        // Reassign the UI references after a scene loads
+        _gameOverText = GameObject.Find("GameOverText").GetComponent<TextMeshProUGUI>();
+        _gameOverText.enabled = false;
+        
+        _scoreText = GameObject.Find("ScoreText").GetComponent<TextMeshProUGUI>();
+        _scoreText.enabled = true;
+        
+        _livesText = GameObject.Find("LivesText").GetComponent<TextMeshProUGUI>();
+        this.lives = lives;
+        _livesText.text = "Lives: " + lives.ToString();
+        _livesText.enabled = true;
+
+        ResetState();
+    }
+
 }
