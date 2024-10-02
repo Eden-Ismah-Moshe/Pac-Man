@@ -15,14 +15,19 @@ public class GhostScared : GhostBehavior
     {
         base.Enable(duration);
 
-        // Hide the normal ghost appearance and show the blue 'scared' sprite
-        body.enabled = false;
-        eyes.enabled = false;
-        blue.enabled = true;
-        white.enabled = false;
-        
-        // Hide the normal ghost appearance and show the blue 'scared' sprite
-        Invoke(nameof(Flash), duration / 2f);
+        if (this != null)
+        {
+            // Hide the normal ghost appearance and show the blue 'scared' sprite
+            if (body != null) body.enabled = false;
+            if (eyes != null) eyes.enabled = false;
+            if (blue != null) blue.enabled = true;
+            if (white != null) white.enabled = false;
+        }
+        if (this != null) // Check again before invoking
+        {
+            // Hide the normal ghost appearance and show the blue 'scared' sprite
+            Invoke(nameof(Flash), duration / 2f);
+        }
     }
 
     public override void Disable()
@@ -30,10 +35,10 @@ public class GhostScared : GhostBehavior
         base.Disable();
 
         // Restore the normal ghost appearance when the scared state ends
-        body.enabled = true;
-        eyes.enabled = true;
-        blue.enabled = false;
-        white.enabled = false;
+        if (body != null) body.enabled = true;
+        if (eyes != null) eyes.enabled = true;
+        if (blue != null) blue.enabled = false;
+        if (white != null) white.enabled = false;
     }
 
     private void Eaten()
@@ -44,27 +49,34 @@ public class GhostScared : GhostBehavior
         ghost.home.Enable(duration);
 
         // Show only the eyes after being eaten
-        body.enabled = false;
-        eyes.enabled = true;
-        blue.enabled = false;
-        white.enabled = false;
+        if (body != null) body.enabled = false;
+        if (eyes != null) eyes.enabled = true;
+        if (blue != null) blue.enabled = false;
+        if (white != null) white.enabled = false;
     }
 
     private void Flash()
     {
-        if (!eaten)
+       
+        if (!eaten && this != null)
         {
             // Switch from blue to white to create a flashing effect
-            blue.enabled = false;
-            white.enabled = true;
-            white.GetComponent<AnimatedSprite>().Restart();
+            if (blue != null) blue.enabled = false;
+            if (white != null)
+            {
+                white.enabled = true;
+                white.GetComponent<AnimatedSprite>().Restart();
+            }
         }
     }
 
     private void OnEnable()
     {
         // Restart the blue animation and reduce the ghost's speed
-        blue.GetComponent<AnimatedSprite>().Restart();
+        //blue.GetComponent<AnimatedSprite>().Restart();
+        
+        if (blue != null) blue.GetComponent<AnimatedSprite>().Restart();
+
         ghost.movement.speedMultiplier = 0.5f;
         eaten = false;
     }
@@ -113,5 +125,12 @@ public class GhostScared : GhostBehavior
             }
         }
     }
+    
+    private void OnDestroy()
+    {
+        // Cancel any Invoke calls related to this object
+        CancelInvoke();
+    }
+
      
 }
